@@ -1,4 +1,4 @@
-package se.kth.webservice.third;
+package se.kth.webservice.third.controllers;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
