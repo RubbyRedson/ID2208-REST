@@ -365,4 +365,41 @@ public class FlightDatabase extends Database {
 
         return route;
     }
+
+    public List<Airport> getAllAirports(int start, int size) {
+            List<Airport> airports = new ArrayList<>();
+
+            try {
+                PreparedStatement prepared = getPreparedStatement("select * from airports where id >= ? limit ?");
+                prepared.setInt(1, start);
+                prepared.setInt(2, size);
+
+                ResultSet rs = prepared.executeQuery();
+                while(rs.next()){
+                    Airport airport = new Airport();
+                    airport.setId(rs.getInt(1));
+                    airport.setName(rs.getString(2));
+                    airport.setCity(rs.getString(3));
+                    airport.setCountry(rs.getString(4));
+                    airport.setIata(rs.getString(5));
+                    airport.setIcao(rs.getString(6));
+                    airport.setLat(rs.getFloat(7));
+                    airport.setLng(rs.getFloat(8));
+                    airport.setAltitudeFeet(rs.getInt(9));
+                    airport.setTimezone(rs.getString(10));
+                    airport.setDst(rs.getString(11));
+                    airport.setTzDb(rs.getString(12));
+                    airport.setType(rs.getString(13));
+                    airport.setSource(rs.getString(14));
+                    airports.add(airport);
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                safeCloseConnection();
+            }
+
+            return airports;
+
+    }
 }

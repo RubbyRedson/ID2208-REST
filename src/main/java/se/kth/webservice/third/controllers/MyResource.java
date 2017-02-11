@@ -1,5 +1,7 @@
 package se.kth.webservice.third.controllers;
 
+import org.json.JSONObject;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -18,8 +20,9 @@ public class MyResource {
      * @return String that will be returned as a text/plain response.
      */
     @GET
-    @Produces(MediaType.TEXT_PLAIN)
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public String getIt() {
-        return "Got it!";
+
+        return "Some stuff";
     }
 }

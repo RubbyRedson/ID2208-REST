@@ -1,9 +1,11 @@
 package se.kth.webservice.third.models;
 
+import org.json.JSONObject;
+
 /**
  * Created by victoraxelsson on 2017-02-06.
  */
-public class Airport {
+public class Airport extends Model{
 
     private int id;
     private String name;
@@ -150,5 +152,26 @@ public class Airport {
 
     public void setSource(String source) {
         this.source = source;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject obj = new JSONObject();
+        obj.put("id", id);
+        obj.put("name", name);
+        obj.put("city", city);
+        obj.put("country", country);
+        obj.put("iata", iata);
+        obj.put("icao", icao);
+        obj.put("lat", lat);
+        obj.put("lng", lng);
+        obj.put("altitudeFeet", altitudeFeet);
+        obj.put("timezone", timezone);
+        obj.put("dst", dst);
+        obj.put("tzDb", tzDb);
+        obj.put("type", type);
+        obj.put("source", source);
+
+        return obj;
     }
 }
