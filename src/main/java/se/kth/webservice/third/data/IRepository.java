@@ -1,8 +1,8 @@
 package se.kth.webservice.third.data;
 
-import se.kth.webservice.third.models.Airport;
-import se.kth.webservice.third.models.TravelPath;
+import se.kth.webservice.third.models.*;
 
+import java.awt.print.Book;
 import java.util.List;
 
 /**
@@ -15,4 +15,16 @@ public interface IRepository {
     Airport updateAirport(Airport airport);
     String deleteAirport(int id);
     TravelPath getItineraries(int from, int to);
+    List<Departure>  getDepartures(int routeId);
+    Departure getDepartureById(int id);
+    int getBookingCount(int id);
+    Booking saveBooking(Booking booking);
+
+    void issueTicket(int bookingId);
+
+    Booking getBookingById(int bookingId);
+
+    Route getRouteById(int routeId);
+
+    Airline getAirlineById(int airlineId);
 }

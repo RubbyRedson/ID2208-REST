@@ -1,6 +1,7 @@
 package se.kth.webservice.third.controllers;
 
 import se.kth.webservice.third.models.Airport;
+import se.kth.webservice.third.models.Departure;
 import se.kth.webservice.third.models.TravelPath;
 
 import javax.ws.rs.*;
@@ -19,4 +20,13 @@ public class ItineraryController extends Controller {
     public TravelPath getAllAirports(@PathParam(value="from") int from, @PathParam(value="to") int to){
         return repo.getItineraries(from, to);
     }
+
+    @GET
+    @Path("departure/{routeId}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    public List<Departure>  getAllDepartures(@PathParam(value="routeId") int routeId){
+        return repo.getDepartures(routeId);
+    }
+
+
 }

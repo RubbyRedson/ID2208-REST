@@ -1,7 +1,6 @@
 package se.kth.webservice.third.data;
 
-import se.kth.webservice.third.models.Airport;
-import se.kth.webservice.third.models.TravelPath;
+import se.kth.webservice.third.models.*;
 
 import java.util.List;
 
@@ -47,5 +46,45 @@ public class DatabaseWrapper implements IRepository{
     public TravelPath getItineraries(int from, int to) {
         List<TravelPath> paths = neoDB.getRoutes(from + "", to + "");
         return paths != null && paths.size() > 0 ? paths.get(0) : null;
+    }
+
+    @Override
+    public List<Departure> getDepartures(int routeId) {
+        return flightDatabase.getDeparturesFromRouteId(routeId);
+    }
+
+    @Override
+    public Departure getDepartureById(int id) {
+        return flightDatabase.getDepartureById(id);
+    }
+
+    @Override
+    public int getBookingCount(int id) {
+        return flightDatabase.getBookingCount(id);
+    }
+
+    @Override
+    public Booking saveBooking(Booking booking) {
+        return flightDatabase.saveBooking(booking);
+    }
+
+    @Override
+    public void issueTicket(int bookingId) {
+        flightDatabase.issueTicket(bookingId);
+    }
+
+    @Override
+    public Booking getBookingById(int bookingId) {
+        return flightDatabase.getBookingById(bookingId);
+    }
+
+    @Override
+    public Route getRouteById(int routeId) {
+        return flightDatabase.getRouteById(routeId);
+    }
+
+    @Override
+    public Airline getAirlineById(int airlineId) {
+        return flightDatabase.getAirlineById(airlineId);
     }
 }

@@ -1,9 +1,11 @@
 package se.kth.webservice.third.models;
 
+import org.json.JSONObject;
+
 /**
  * Created by victoraxelsson on 2017-02-06.
  */
-public class Departure {
+public class Departure extends Model{
     int id;
     int routeId;
     String lifts;
@@ -39,5 +41,42 @@ public class Departure {
 
     public void setLands(String lands) {
         this.lands = lands;
+    }
+
+    @Override
+    public String toString() {
+        return "Departure{" +
+                "id=" + id +
+                ", routeId=" + routeId +
+                ", lifts='" + lifts + '\'' +
+                ", lands='" + lands + '\'' +
+                '}';
+    }
+
+    @Override
+    public JSONObject toJson() {
+
+        JSONObject o = new JSONObject();
+        o.put("id", id);
+        o.put("routeId", routeId);
+        o.put("lifts", lifts);
+        o.put("lands", lands);
+
+        return o;
+    }
+
+    @Override
+    protected Class getModelClass() {
+        return Departure.class;
+    }
+
+    @Override
+    protected Object getChildInstance() {
+        return this;
+    }
+
+    @Override
+    public String toPlain() {
+        return toString();
     }
 }
