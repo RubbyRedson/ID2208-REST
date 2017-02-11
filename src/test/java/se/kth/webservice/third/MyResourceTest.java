@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import se.kth.webservice.third.models.Airport;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -122,6 +123,59 @@ public class MyResourceTest {
                         ":1},{\"country\":\"Swe2\",\"iata\":\"wherever2\",\"lng\":2,\"dst\":\"Dst2\",\"city\":" +
                         "\"Stockholm2\",\"name\":\"Arlanda2\",\"icao\":\"whatever2\",\"altitudeFeet\":5601,\"id\":2," +
                         "\"lat\":2}]",
+                responeEntity);
+    }
+
+    @Test
+    public void airportPost() {
+        Airport a1 = new Airport();
+        a1.setId(1);
+        a1.setName("Arlanda");
+        a1.setCountry("Swe");
+        a1.setAltitudeFeet(560);
+        a1.setIcao("whatever");
+        a1.setIata("wherever");
+        a1.setCity("Stockholm");
+        a1.setDst("Dst");
+        a1.setLat(1);
+        a1.setLng(1);
+        Response response =
+                target.path("airport").request().post(Entity.json(a1));
+        String responeEntity = response.readEntity(String.class);
+        assertEquals("{\"type\":\"airport\",\"altitudeFeet\":560,\"city\":\"Stockholm\",\"country\":\"Swe\"," +
+                        "\"dst\":\"Dst\",\"iata\":\"wherever\",\"icao\":\"whatever\",\"id\":1,\"lat\":1.0,\"lng\":1.0," +
+                        "\"name\":\"Arlanda\",\"type\":\"airport\"}",
+                responeEntity);
+    }
+
+    @Test
+    public void airportPut() {
+        Airport a1 = new Airport();
+        a1.setId(1);
+        a1.setName("Arlanda");
+        a1.setCountry("Swe");
+        a1.setAltitudeFeet(560);
+        a1.setIcao("whatever");
+        a1.setIata("wherever");
+        a1.setCity("Stockholm");
+        a1.setDst("Dst");
+        a1.setLat(1);
+        a1.setLng(1);
+        Response response =
+                target.path("airport").request().post(Entity.json(a1));
+        String responeEntity = response.readEntity(String.class);
+        assertEquals("{\"type\":\"airport\",\"altitudeFeet\":560,\"city\":\"Stockholm\",\"country\":\"Swe\"," +
+                        "\"dst\":\"Dst\",\"iata\":\"wherever\",\"icao\":\"whatever\",\"id\":1,\"lat\":1.0,\"lng\":1.0," +
+                        "\"name\":\"Arlanda\",\"type\":\"airport\"}",
+                responeEntity);
+    }
+
+    @Test
+    public void airportDelete() {
+        Response response =
+                target.path("airport/1").request().delete();
+        String responeEntity = response.readEntity(String.class);
+        assertEquals("Success",
                 responeEntity);
     }
 }
