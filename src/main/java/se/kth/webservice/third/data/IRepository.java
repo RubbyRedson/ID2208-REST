@@ -9,4 +9,8 @@ import java.util.List;
  */
 public interface IRepository {
     List<Airport> getAllAirports(int start, int size);
+    Airport getAirportById(int id);
+    Airport insertAirport(Airport airport);
+    Airport updateAirport(Airport airport);
+    String deleteAirport(int id);
 }

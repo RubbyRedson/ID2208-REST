@@ -19,7 +19,7 @@ public abstract class Model {
     public abstract String toPlain();
 
 
-    private String toXml() {
+    public String toXml() {
 
         String xmlString = "";
         try {

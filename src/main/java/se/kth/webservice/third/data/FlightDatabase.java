@@ -402,4 +402,84 @@ public class FlightDatabase extends Database {
             return airports;
 
     }
+
+    public Airport insertAirport(Airport airport) {
+        try {
+            PreparedStatement prepared = getPreparedStatement("insert into airports (name, city, country, iata, icao, lat, lng, altitude_feet, timezone, dst, tz_db, type, source) values (?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            prepared.setString(1, airport.getName());
+            prepared.setString(2, airport.getCity());
+            prepared.setString(3, airport.getCountry());
+            prepared.setString(4, airport.getIata());
+            prepared.setString(5, airport.getIcao());
+            prepared.setFloat(6, airport.getLat());
+            prepared.setFloat(7, airport.getLng());
+            prepared.setInt(8, airport.getAltitudeFeet());
+            prepared.setString(9, airport.getTimezone());
+            prepared.setString(10, airport.getDst());
+            prepared.setString(11, airport.getTzDb());
+            prepared.setString(12, airport.getType());
+            prepared.setString(13, airport.getSource());
+
+            prepared.execute();
+
+            ResultSet rs = prepared.getGeneratedKeys();
+            if (rs.next()) {
+                int id = rs.getInt(1);
+                airport.setId(id);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            safeCloseConnection();
+        }
+
+        return airport;
+    }
+
+    public Airport updateAirport(Airport airport) {
+        try {
+            PreparedStatement prepared = getPreparedStatement("Update airports set name=?, city=?, country=?, iata=?, icao=?, lat=?, lng=?, altitude_feet=?, timezone=?, dst=?, tz_db=?, type=?, source=? where id=?");
+            prepared.setString(1, airport.getName());
+            prepared.setString(2, airport.getCity());
+            prepared.setString(3, airport.getCountry());
+            prepared.setString(4, airport.getIata());
+            prepared.setString(5, airport.getIcao());
+            prepared.setFloat(6, airport.getLat());
+            prepared.setFloat(7, airport.getLng());
+            prepared.setInt(8, airport.getAltitudeFeet());
+            prepared.setString(9, airport.getTimezone());
+            prepared.setString(10, airport.getDst());
+            prepared.setString(11, airport.getTzDb());
+            prepared.setString(12, airport.getType());
+            prepared.setString(13, airport.getSource());
+            prepared.setInt(14, airport.getId());
+
+            prepared.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            safeCloseConnection();
+        }
+
+        return airport;
+    }
+
+    public String deleteAirport(int id) {
+        Boolean wasOk = false;
+
+        try {
+            PreparedStatement prepared = getPreparedStatement("delete from airports where id=?");
+            prepared.setInt(1, id);
+            wasOk = prepared.execute();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            safeCloseConnection();
+        }
+
+        return "Was ok: " + wasOk;
+    }
 }

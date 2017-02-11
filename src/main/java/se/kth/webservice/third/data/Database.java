@@ -1,5 +1,7 @@
 package se.kth.webservice.third.data;
 
+import se.kth.webservice.third.models.Airport;
+
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -107,4 +109,7 @@ public abstract class Database {
             }
         }
     }
+
+
+
 }

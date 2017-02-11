@@ -14,7 +14,7 @@ import java.util.List;
 public class AirportController extends Controller{
 
     @GET
-    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
     public List<Airport> getAllAirports(@QueryParam(value="start") int start, @QueryParam(value="size") int size){
 
         start = start == 0 ? DEFAULT_PAGE_START : start;
@@ -22,4 +22,31 @@ public class AirportController extends Controller{
 
         return repo.getAllAirports(start, size);
     }
+
+    @GET
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    public Airport getAllAirports(@PathParam(value="id") int id){
+        return repo.getAirportById(id);
+    }
+
+    @POST
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    public Airport createAirport(Airport airport){
+        return repo.insertAirport(airport);
+    }
+
+    @PUT
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    public Airport updateAirport(Airport airport){
+        return repo.updateAirport(airport);
+    }
+
+    @DELETE
+    @Path("{id}")
+    @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.TEXT_PLAIN})
+    public String updateAirport(@PathParam(value="id") int id){
+        return repo.deleteAirport(id);
+    }
+
 }

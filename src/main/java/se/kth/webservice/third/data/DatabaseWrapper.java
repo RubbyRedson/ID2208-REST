@@ -21,4 +21,24 @@ public class DatabaseWrapper implements IRepository{
     public List<Airport> getAllAirports(int start, int from) {
         return flightDatabase.getAllAirports(start, from);
     }
+
+    @Override
+    public Airport getAirportById(int id) {
+        return flightDatabase.getAirportById(id);
+    }
+
+    @Override
+    public Airport insertAirport(Airport airport) {
+        return flightDatabase.insertAirport(airport);
+    }
+
+    @Override
+    public Airport updateAirport(Airport airport) {
+        return flightDatabase.updateAirport(airport);
+    }
+
+    @Override
+    public String deleteAirport(int id) {
+        return flightDatabase.deleteAirport(id);
+    }
 }

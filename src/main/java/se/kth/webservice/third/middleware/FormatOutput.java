@@ -2,7 +2,6 @@ package se.kth.webservice.third.middleware;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-import se.kth.webservice.third.middleware.formatters.JsonFormatter;
 import se.kth.webservice.third.models.Model;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -24,7 +23,6 @@ import java.util.List;
  */
 @Provider
 public class FormatOutput implements ContainerResponseFilter {
-    JsonFormatter jsonFormatter = new JsonFormatter();
 
 
     private String buildJsonArray(List<Model> models){
@@ -46,7 +44,8 @@ public class FormatOutput implements ContainerResponseFilter {
     public void filter(ContainerRequestContext containerRequestContext, ContainerResponseContext containerResponseContext) throws IOException {
 
         MultivaluedMap<String, String> requestParams = containerRequestContext.getUriInfo().getQueryParameters();
-        String out = requestParams.get("out").size() <= 0 ? "json" : requestParams.get("out").get(0);
+
+        String out = requestParams.get("out") == null || requestParams.get("out").size() <= 0 ? "json" : requestParams.get("out").get(0);
 
         if(containerResponseContext.getEntityClass() == List.class){
             System.out.println("This is a list");
@@ -65,8 +64,23 @@ public class FormatOutput implements ContainerResponseFilter {
                 containerResponseContext.setEntity(buildPlainArray(models));
             }
 
-        }else{
+        }else if(containerResponseContext.getEntityClass() == Model.class){
+
+            Model model = (Model)containerResponseContext.getEntity();
+            //The defualt output is json
+            if(out.equals("json")){
+                containerResponseContext.setEntity(model.toJson().toString());
+            }else if(out.equals("xml")){
+                //use xml
+                containerResponseContext.setEntity(model.toXml());
+            }else if(out.equals("plain")){
+                //use plaintext
+                containerResponseContext.setEntity(model.toPlain());
+            }
+
             System.out.println("This is a single object");
+        }else{
+
         }
 
 
