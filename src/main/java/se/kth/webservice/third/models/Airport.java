@@ -174,4 +174,21 @@ public class Airport extends Model{
 
         return obj;
     }
+
+
+
+    @Override
+    protected Class getModelClass() {
+        return Airport.class;
+    }
+
+    @Override
+    protected Object getChildInstance() {
+        return this;
+    }
+
+    @Override
+    public String toPlain() {
+        return toString();
+    }
 }
