@@ -1,6 +1,7 @@
 package se.kth.webservice.third.data;
 
 import se.kth.webservice.third.models.Airport;
+import se.kth.webservice.third.models.TravelPath;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface IRepository {
     Airport insertAirport(Airport airport);
     Airport updateAirport(Airport airport);
     String deleteAirport(int id);
+    TravelPath getItineraries(int from, int to);
 }

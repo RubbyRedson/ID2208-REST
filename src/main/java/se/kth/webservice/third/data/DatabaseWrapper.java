@@ -1,6 +1,7 @@
 package se.kth.webservice.third.data;
 
 import se.kth.webservice.third.models.Airport;
+import se.kth.webservice.third.models.TravelPath;
 
 import java.util.List;
 
@@ -40,5 +41,11 @@ public class DatabaseWrapper implements IRepository{
     @Override
     public String deleteAirport(int id) {
         return flightDatabase.deleteAirport(id);
+    }
+
+    @Override
+    public TravelPath getItineraries(int from, int to) {
+        List<TravelPath> paths = neoDB.getRoutes(from + "", to + "");
+        return paths != null && paths.size() > 0 ? paths.get(0) : null;
     }
 }
