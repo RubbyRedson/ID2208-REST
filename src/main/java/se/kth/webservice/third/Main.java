@@ -3,6 +3,7 @@ package se.kth.webservice.third;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
+import se.kth.webservice.third.controllers.Controller;
 
 import java.io.IOException;
 import java.net.URI;
@@ -42,6 +43,19 @@ public class Main {
                 + "%sapplication.wadl\nHit enter to stop it...", BASE_URI));
         System.in.read();
         server.stop();
+    }
+
+    public static HttpServer testStart() {
+        // create a resource config that scans for JAX-RS resources and providers
+        // in se.kth.webservice.third package
+        final ResourceConfig rc = new ResourceConfig().packages("se.kth.webservice.third");
+        Controller.test = true;
+        // create and start a new instance of grizzly http server
+        // exposing the Jersey application at BASE_URI
+        HttpServer server = GrizzlyHttpServerFactory.createHttpServer(URI.create(BASE_URI), rc);
+
+        return server;
+
     }
 }
 

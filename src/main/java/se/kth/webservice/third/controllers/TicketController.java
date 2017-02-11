@@ -38,51 +38,7 @@ public class TicketController extends Controller {
             ticket.setPrice(bookingCount * 1000);
             ticket.setAirline(airline);
 
-
-            Ticket ticket1 = new Ticket();
-
-            Booking booking1 = new Booking();
-            booking1.setId(ticket.getBooking().getId());
-            booking1.setCardNumber(ticket.getBooking().getCardNumber());
-            booking1.setDepartureId(ticket.getBooking().getDepartureId());
-            booking1.setIssued(true);
-
-            Departure departure1 = new Departure();
-            departure1.setId(departure.getId());
-            departure1.setRouteId(departure.getRouteId());
-            departure1.setLands(departure.getLands());
-            departure1.setLifts(departure.getLifts());
-
-            Route route1 = new Route();
-            route1.setId(route.getId());
-            route1.setAirline(route.getAirline());
-            route1.setAirlineId(route.getAirlineId());
-            route1.setDestinationAirport(route.getDestinationAirport());
-            route1.setDestinationAirportId(route.getDestinationAirportId());
-            route1.setCodeshare(route.getCodeshare());
-            route1.setSourceAirport(route.getSourceAirport());
-            route1.setSourceAirportId(route.getSourceAirportId());
-            route1.setEquipment(route.getEquipment());
-            route1.setStops(route.getStops());
-
-            Airline airline1 = new Airline();
-            airline1.setId(airline.getId());
-            airline1.setActive(airline.getActive());
-            airline1.setAlias(airline.getAlias());
-            airline1.setCallsign(airline.getCallsign());
-            airline1.setCountry(airline.getCountry());
-            airline1.setIata(airline.getIata());
-            airline1.setIcao(airline.getIcao());
-            airline1.setName(airline.getName());
-
-            ticket1.setId(ticket.getId());
-            ticket1.setPrice(ticket.getPrice());
-            ticket1.setRoute(route1);
-            ticket1.setDeparture(departure1);
-            ticket1.setBooking(booking1);
-            ticket1.setAirline(airline1);
-
-            return Response.status(200).entity(ticket1).build();
+            return Response.status(200).entity(ticket).build();
         }
 
         return Response.status(400).entity("Bad request").build();
